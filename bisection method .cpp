@@ -27,7 +27,7 @@ float x1,x2,x,e;
 
 void bisect(string &s,int len)
 {
-    for(i=0; i<len; i++)
+    for(i=0; i<s.size(); i++)
     {
         //x er highest degree koto check kortesi then oitake amra n er moddhe store kortesi ..
         //   //x^3-4x^2+x+6 .....
@@ -35,30 +35,37 @@ void bisect(string &s,int len)
         if(s[i]=='x')
         {
             n=s[i+2]-'0';
+            //cout<<s[i+2]<<endl;
+            //cout<<s[i+2]-'0'<<endl;
+            //cout<<n<<endl;
             break;
         }
     }
-    n1=n;
+
+    int n1=n;
     //prothom digit ta ki coefficient kina check korsi....
     if(s[0]>='0' && s[0]<='9')
     {
-        p[n]=s[0]-'0',n--;
+        p[n]=s[0]-'0';
+        n--;
     }
     //prothom number ta jodi minus hoy porer ta ki coefficient kina check korsi ..
     //plus wala condition di nai karon kono kichur agae kichu nai mane oita positive dhora hoy auto ..like 7x .. 7 er agae plus ase oita mone mone dhora hoy ..
-    else if((s[0]=='-' && (s[1]>='0' && s[1]<='9')))
+    else if(  (   s[0]=='-' &&  (s[1]>='0' && s[1]<='9')  )  )
     {
+        //coefficient ta k negetive korar jonno -1 diye into kora hoise ....
         p[n]=(s[1]-'0')*(-1);
         n--;
     }
-    //loop ta chalano hoise coefficient gulo k alada kore array te store korar jonno ...
-    for(i=0; i<len; i++)
+//loop ta chalano hoise coefficient gulo k alada kore array te store korar jonno ...
+    for(i=0; i<s.size(); i++)
     {
         //ei condition ta cholbe jodi kono coefficient pai and ter ager value jodi - or + hoy .....
         if(s[i]>='0' && s[i]<='9'&& (s[i-1]=='-' || s[i-1]=='+'))
         {
             p[n]=s[i]-'0';
-            if(i>0 && s[i-1]=='-') p[n]*=(-1);
+            if(i>0 && s[i-1]=='-')
+                p[n]*=(-1);
             n--;
         }
         //ei condition ta cholbe jodi x er kono coefficient na thakae ...
@@ -66,7 +73,8 @@ void bisect(string &s,int len)
         else if(s[i]=='x' && !(s[i-1]>='0'&&s[i-1]<='9'))
         {
             p[n]=1;
-            if(s[i-1]=='-') p[n]*=(-1);
+            if(s[i-1]=='-')
+                p[n]*=(-1);
             n--;
         }
     }
@@ -77,7 +85,7 @@ float value(string &s, float x)
     float sum=0;
     float mul;
     int n2=n1;
-    //value put kore solution ber kora hoise ...
+    //value put kore f(x) er solution ber kora hoise ...
     for(i=0; i<s.size(); i++)
     {
         if(s[i]=='x')
